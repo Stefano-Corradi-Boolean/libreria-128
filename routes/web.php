@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $title = 'Layout base - HOME';
-    $text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo modi, iusto dolore eaque laudantium optio, adipisci perspiciatis voluptate obcaecati sit perferendis natus velit ut! Tempora voluptatum ipsam modi rem voluptas.';
-    return view('home', compact('text', 'title'));
-})->name('home');
-
-Route::get('/chi-siamo', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/contatti', function () {
-    return view('contacts');
-})->name('contacts');
+// come secondo parametro al posto della function() tra le quadre scrivo [MioController::class, 'funzioneDelController']
+Route::get('/', [PageController::class, 'index'] )->name('home');
+Route::get('/chi-siamo', [PageController::class, 'about'] )->name('about');
+Route::get('/contatti', [PageController::class, 'contacts'] )->name('contacts');
+Route::get('/i-mei-libri', [PageController::class, 'books'] )->name('books');
+Route::get('/i-libri-brutti', [PageController::class, 'bedBooks'] )->name('bedBooks');
+Route::get('/i-libri-belli', [PageController::class, 'bestBooks'] )->name('bestBooks');
+// questa rotta riceve dinamicamente l'id del libro
+Route::get('/dettaglio-libro/{id}', [PageController::class, 'bookDetail'] )->name('bookDetail');
